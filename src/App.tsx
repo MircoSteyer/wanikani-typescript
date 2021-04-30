@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import wanikaniService from "./services/wanikani"
+import {WanikaniAssignment, WanikaniLevelProgression} from "./typescript/types/wanikani-types";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppProps {
 }
 
-export default App;
+const App: React.FC<AppProps> = () => {
+
+    const [levelProgression, setLevelProgression] = useState<WanikaniLevelProgression[]>([])
+    const [assignments, setAssignments] = useState<WanikaniAssignment[]>([])
+
+    useEffect(() => {
+        const getData = async (): Promise<void> => {
+            const levelProgression = await wanikaniService.getLevelProgression()
+            setLevelProgression(levelProgression)
+            const assignments = await wanikaniService.getAssignments()
+            setAssignments(assignments)
+        }
+        getData()
+    }, [])
+
+    console.log(assignments.length)
+    return (
+        <div>
+            <pre>
+                levelProgression[0]: {JSON.stringify(levelProgression[0], null, 2)}
+            </pre>
+{/*            <pre>
+                {JSON.stringify(levelProgression, null, 2)}
+                {JSON.stringify(assignments, null, 2)}
+            </pre>*/}
+        </div>
+
+
+    )
+}
+
+export default App
