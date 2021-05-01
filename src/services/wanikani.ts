@@ -3,7 +3,7 @@ import {
     WanikaniAssignment,
     WanikaniAssignmentResponse,
     WanikaniLevelProgression,
-    WanikaniLevelProgressionResponse, WanikaniObject,
+    WanikaniLevelProgressionResponse,
     WanikaniSingleLevelProgressionResponse
 } from "../typescript/types/wanikani-types";
 
@@ -15,31 +15,30 @@ const config: AxiosRequestConfig = {
     }
 }
 
-const getLevelProgression = async (): Promise<WanikaniLevelProgression[]> => {
+const getLevelProgression = async (): Promise<WanikaniLevelProgressionResponse> => {
     try {
         const levelProgression = await axios.get<WanikaniLevelProgressionResponse>(`https://api.wanikani.com/v2/level_progressions`, config)
-        return levelProgression.data.data
+        return levelProgression.data
     }
     catch (err) {
         throw(err)
     }
 }
 
-const getSingleLevelProgression = async (): Promise<WanikaniLevelProgression> => {
+const getSingleLevelProgression = async (): Promise<WanikaniSingleLevelProgressionResponse> => {
     try {
         const levelProgression = await axios.get<WanikaniSingleLevelProgressionResponse>(`https://api.wanikani.com/v2/level_progressions/514143`, config)
-        return levelProgression.data.data
+        return levelProgression.data
     }
     catch (err) {
         throw(err)
     }
 }
 
-const getAssignments = async (): Promise<WanikaniAssignment[]> => {
+const getAssignments = async (): Promise<WanikaniAssignmentResponse> => {
     try {
         const assignments = await axios.get<WanikaniAssignmentResponse>(`https://api.wanikani.com/v2/assignments`, config)
-        console.log(assignments.data)
-        return assignments.data.data
+        return assignments.data
     }
     catch (err) {
         throw(err)

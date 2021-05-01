@@ -37,17 +37,17 @@ export interface WanikaniObject<T> {
     data: T;
 }
 
-/*export type WanikaniAssignmentResponse = WanikaniPaginatedResult<
+export type WanikaniAssignmentResponse = WanikaniPaginatedResult<
     WanikaniObject<WanikaniObject<WanikaniAssignment>[]>
     > & {
     object: 'assignment';
-};*/
+};
 
-export type WanikaniAssignmentResponse = WanikaniPaginatedResult<
+/*export type WanikaniAssignmentResponse = WanikaniPaginatedResult<
     WanikaniObject<WanikaniAssignment[]>
     > & {
     object: 'assignment';
-};
+};*/
 
 export interface WanikaniAssignment {
     available_at: Date | null;
@@ -91,13 +91,13 @@ export interface WanikaniLevelProgression {
 }
 
 export type WanikaniLevelProgressionResponse = WanikaniPaginatedResult<
-    WanikaniObject<WanikaniLevelProgression[]>
+    WanikaniObject<WanikaniObject<WanikaniLevelProgression>[]>
     > & {
     object: 'level_progression';
 };
 
 export type WanikaniSingleLevelProgressionResponse = WanikaniPaginatedResult<
-    WanikaniObject<WanikaniLevelProgression>
+    WanikaniObject<WanikaniObject<WanikaniLevelProgression>>
     > & {
     object: 'level_progression';
 };
