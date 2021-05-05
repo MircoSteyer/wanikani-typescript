@@ -1,18 +1,21 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {
-    WanikaniAssignment,
     WanikaniAssignmentResponse,
-    WanikaniLevelProgression,
     WanikaniLevelProgressionResponse,
     WanikaniSingleLevelProgressionResponse
 } from "../typescript/types/wanikani-types";
 
-const apiToken = "a76680e7-dce2-4702-b847-0cb48ba895e0"
-const config: AxiosRequestConfig = {
+let apiToken = ""
+let config: AxiosRequestConfig = {
     headers: {
         "Wanikani-Revision": "20170710",
         Authorization: `Bearer ${apiToken}`
     }
+}
+
+const setApiToken = (token: string): void => {
+    apiToken = token
+    config = {...config, headers: {...config.headers, Authorization: `Bearer ${apiToken}`}}
 }
 
 const getLevelProgression = async (): Promise<WanikaniLevelProgressionResponse> => {
@@ -46,6 +49,7 @@ const getAssignments = async (): Promise<WanikaniAssignmentResponse> => {
 }
 
 const wanikaniService = {
+    setApiToken,
     getLevelProgression,
     getSingleLevelProgression,
     getAssignments

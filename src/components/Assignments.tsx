@@ -5,21 +5,21 @@ import {useQuery} from "react-query";
 
 const Assignments = () => {
 
-    /*const queryClient = useQueryClient()*/
+    const assignmentQuery = useQuery<WanikaniAssignmentResponse, Error>("assignments", wanikaniService.getAssignments)
 
-    const {isLoading, isError, data, error} = useQuery<WanikaniAssignmentResponse, Error>("assignments", wanikaniService.getAssignments)
-
-    if(isLoading) {
-        return <div>Is Loading...</div>
+    if(assignmentQuery.isLoading || assignmentQuery.isIdle) {
+        return <div></div>
     }
 
-    if(isError) {
-        return <div>Error: {error!.message}</div>
+    if(assignmentQuery.isError) {
+        return <div>Error: {assignmentQuery.error.message}</div>
     }
+
+    const data = assignmentQuery.data
 
     return (
         <pre>
-            assignments[0]: {JSON.stringify(data, null, 2)}
+            assignments[0]: {JSON.stringify(data.data[0], null, 2)}
         </pre>
     )
 }
